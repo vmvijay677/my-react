@@ -1,16 +1,41 @@
-.App {
-  font-family: sans-serif;
+.Movie{
   text-align: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
 }
 
-.Welcome {
-  font-family: "Tangerine", serif;
+img{
+  height: 430px;
+  width: 25%;
+  margin-top: 20px;
+}
+
+h1{
+  font-size: 40px;
+  color: brown;
+}
+
+h2{
   font-size: 30px;
+  margin-top: 20px;
+  color: maroon;
 }
 
-img {
-  height: 300px;
-  width: 23%;
-  object-fit: cover;
-  border-radius: 50%;
+.Summary{
+  font-size: 18px;
+}
+
+.Span1{
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.Span2{
+  font-size: 20px;
+}
+
+button{
+  margin-top: 15px;
 }
