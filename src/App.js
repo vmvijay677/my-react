@@ -145,11 +145,3 @@ function Movieslist() {
     </div>
   );
 }
-
-// function Msg({name}){
-//   return (
-//     <div className="Welcome">
-//        <h1>Welcome {name} 😊</h1>
-//      </div>
-//   )
-// }
