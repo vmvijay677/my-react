@@ -1,147 +1,139 @@
 import "./index.css";
 import { useState } from "react";
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 
 
 export default function App() {
+  const movies = [
+    {
+      poster: "https://m.media-amazon.com/images/M/MV5BNmU1OTYzYzAtMDcyOS00MDI0LTg2ZmQtYTEyMDdmMmQ0MjY5XkEyXkFqcGdeQXVyOTk3NTc2MzE@._V1_.jpg",
+      name: "1. Master (2021)",
+      summary: "John Durairaj, an alcoholic professor, gets enrolled to teach at a juvenile facility, unbeknownst to him. He soon clashes with a ruthless gangster, who uses the children as scapegoats for his crimes.",
+      rating: "7.8/10"
+    },
+    {
+      poster: "https://www.sify.com/uploads/1-tgykJ4ihfiagi.jpg",
+      name: "2. Bigil (2019)",
+      summary: "Michael, an aggressive young man, gives up his dream of becoming a footballer after his father's murder. However, a friend convinces him to coach a women's football team and turn his life around.",
+      rating: "6.9/10"
+    },
+    {
+      poster: "https://pbs.twimg.com/media/DLyjImyVwAAw5No.jpg",
+      name: "3. Mersal (2017)",
+      summary: "Maaran, a doctor, is falsely arrested for the murder of his colleague, Dr Arjun Zachariah. He soon discovers that the real culprit is a lookalike who aims to expose corruption in the medical industry.",
+      rating: "7.8/10"
+    },
+    {
+      poster: "https://live.staticflickr.com/65535/10496255225_2744d915de_b.jpg",
+      name: "4. Theri (2016)",
+      summary: "DCP Vijaya Kumar goes into hiding to bring up his daughter in a safe environment. However, after her life is threatened by deadly gangsters, he must face his past to protect his daughter.",
+      rating: "7.4/10"
+    },
+    {
+      poster: "https://pbs.twimg.com/media/BqptqsXCEAEBQjE?format=jpg&name=large",
+      name: "5. Kaththi (2014)",
+      summary: "Kathiresan, who escapes from prison, accidentally meets his lookalike, Jeeva, who gets shot by criminals. Kathiresan masquerades as Jeeva in order to save himself, but it turns him into a crusader.",
+      rating: "8.1/10"
+    } 
+];
+const [name, setName] = useState(" ");
+const [poster, setPoster] = useState(" ");
+const [summary, setSummary] = useState(" ");
+const [rating, setRating] = useState(" ");
+const [movieList, setMovieList] = useState(movies);
+const style = {
+  marginTop: "15px"
+}
   return (
-    <div className="App">
-      <Movieslist />
+    <div>
+      <Heading />
+      <div className="add-movie">
+        <TextField id="outlined-basic" label="Movie Name" color="success" variant="outlined" style={style} onChange={(event) => setName(event.target.value)} />
+        <TextField id="outlined-basic" label="Movie Poster" variant="outlined" color="success" onChange={(event) => setPoster(event.target.value)}/>
+        <TextField id="outlined-multiline-static" label="Movie Summary" color="success" multilinerows={2} onChange={(event) => setSummary(event.target.value)}/>
+        <TextField id="outlined-basic" label="Movie Rating" variant="outlined" color="success" onChange={(event) => setRating(event.target.value)}/>
+        <Button id="button" variant="contained" className="button" onClick={() => {
+          const newMovie = {
+            name: name,
+            poster: poster,
+            rating: rating,
+            summary: summary,
+          };
+          setMovieList([... movieList, newMovie]);
+        }}>Add Movie</Button>
+      </div>
+      <div className="App"> 
+      {movieList.map(({name, poster, summary, rating}, index) => (<Movieslist key={index} name={name} poster={poster} summary={summary} rating={rating}/>))}
+      </div>
+    </div>
+    // <Counter />
+  );
+}
+
+function Heading(){
+  const style = {
+    marginTop: "20px"
+  }
+  return(
+    <div>
+    <h1 style={style}>IMDb's Favourite</h1>
+    <h1>Add your favourite movie here</h1>
+    </div>
+  )
+}
+
+function Movieslist({name, poster, summary, rating}){
+  //let like = 4;
+  const styles = {
+    color: "green",
+  };
+  const [like1, setLike1] = useState(0);
+  const [dislike1, setDislike1] = useState(0);
+  return (
+    <div>
+      <div className="Movie">
+      <img src={poster} alt="movie-poster"></img>
+      <div className="Movie-specs">
+      <h2>{name}</h2>
+      <p>
+        <button className="btn btn-success" onClick={() => setLike1(like1 + 1)}>👍 Like {like1}</button> &nbsp;
+        <button className="btn btn-danger" onClick={() => setDislike1(dislike1 + 1)}>👎 Dislike {dislike1}</button>
+      </p>
+      <p className="Summary">{summary}</p>
+      <span className="Span1">IMDb Rating: </span>
+      <span className="Span2" style={styles}>⭐ {rating}</span>
+      <br></br>
+      </div>
+      </div>
     </div>
   );
 }
 
-function Movieslist() {
-  //let like = 4;
-  const [like1, setLike1] = useState(0);
-  const [dislike1, setDislike1] = useState(0);
 
-  const [like2, setLike2] = useState(0);
-  const [dislike2, setDislike2] = useState(0);
-
-  const [like3, setLike3] = useState(0);
-  const [dislike3, setDislike3] = useState(0);
-
-  const [like4, setLike4] = useState(0);
-  const [dislike4, setDislike4] = useState(0);
-
-  const [like5, setLike5] = useState(0);
-  const [dislike5, setDislike5] = useState(0);
+function Counter(){
+  const[color, setColor] = useState("pink");
+  const [colorList, setColorList] = useState(["red", "grey", "purple", "orange"]);
+  const style = {
+    backgroundColor: color,
+  };
   return (
-    <div className="Movie">
-      <h1>IMDb's Favourite (Top 5)</h1>
-      <img src="https://m.media-amazon.com/images/M/MV5BNmU1OTYzYzAtMDcyOS00MDI0LTg2ZmQtYTEyMDdmMmQ0MjY5XkEyXkFqcGdeQXVyOTk3NTc2MzE@._V1_.jpg" alt="movie-poster"></img>
-      <h2>1. Master (2021)</h2>
-      <p>
-        <button className="btn btn-success" onClick={() => setLike1(like1 + 1)}>👍 Like {like1}</button> &nbsp; &nbsp;
-        <button className="btn btn-danger" onClick={() => setDislike1(dislike1 + 1)}>👎 Dislike {dislike1}</button>
-      </p>
-      <p className="Summary">Master is a 2021 Indian Tamil-language action thriller film, written and directed by Lokesh Kanagaraj. Produced by Xavier Britto, under his maiden production house XB Film Creators, the film stars Vijay and Vijay Sethupathi while Malavika Mohanan, Shanthanu Bhagyaraj, Andrea Jeremiah, Arjun Das and Gouri G. Kishan play supporting roles. The film revolves around an alcoholic professor, J. D. (Vijay), who takes a three-month teaching job in a juvenile home, unbeknownst to him. He soon clashes with a ruthless gangster named Bhavani (Vijay Sethupathi), who uses the children as the scapegoat for his criminal activities.</p>
-      <span className="Span1">Release date: </span>
-      <span className="Span2">13 January 2021</span>
-      <br></br><br></br>
-      <span className="Span1">IMDb Rating: </span>
-      <span className="Span2">7.8/10</span>
-      <br></br><br></br>
-      <span className="Span1">Box office: </span>
-      <span className="Span2">est. ₹230-300 crores</span>
-      <br></br><br></br>
-      <span className="Span1">Budget: </span>
-      <span className="Span2">₹135 crores</span>
-
-      <br></br>
-      <br></br>
-      <br></br>
-
-      <img src="https://www.sify.com/uploads/1-tgykJ4ihfiagi.jpg" alt="movie-poster"></img>
-      <h2>2. Bigil (2019)</h2>
-      <p>
-        <button className="btn btn-success" onClick={() => setLike2(like2 + 1)}>👍 Like {like2}</button> &nbsp; &nbsp;
-        <button className="btn btn-danger" onClick={() => setDislike2(dislike2 + 1)}>👎 Dislike {dislike2}</button>
-      </p>
-      <p className="Summary">Bigil is a 2019 Indian Tamil-language sports action film written and directed by Atlee and produced by Kalpathi S. Aghoram under the banner AGS Entertainment. The film stars Vijay in dual roles as Michael, a footballer-turned-mobster and his father Rayappan, a don. It also stars Nayanthara, Jackie Shroff, Vivek and Kathir in other prominent roles. It revolves around Micheal, who decides to coach a women's football team when their coach gets attacked. He faces challenges when his team does not cooperate with him due to his violent background and also finds himself hunted by some rivals who want revenge.</p>
-      <span className="Span1">Release date: </span>
-      <span className="Span2">25 October 2019</span>
-      <br></br><br></br>
-      <span className="Span1">IMDb Rating: </span>
-      <span className="Span2">6.9/10</span>
-      <br></br><br></br>
-      <span className="Span1">Box office: </span>
-      <span className="Span2">est. ₹285-304.7 crores</span>
-      <br></br><br></br>
-      <span className="Span1">Budget: </span>
-      <span className="Span2">₹180 crores</span>
-
-      <br></br>
-      <br></br>
-      <br></br>
-
-      <img src="https://pbs.twimg.com/media/DLyjImyVwAAw5No.jpg" alt="movie-poster"></img>
-      <h2>3. Mersal (2017)</h2>
-      <p>
-        <button className="btn btn-success" onClick={() => setLike3(like3 + 1)}>👍 Like {like3}</button> &nbsp; &nbsp;
-        <button className="btn btn-danger" onClick={() => setDislike3(dislike3 + 1)}>👎 Dislike {dislike3}</button>
-      </p>
-      <p className="Summary">Mersal is a 2017 Indian Tamil-language action thriller film, directed by Atlee who co-wrote the film with K. V. Vijayendra Prasad and S. Ramana Girivasan. Produced by Thenandal Studio Limited in their 100th production, the film stars Vijay, S. J. Surya, Sathyaraj, Vadivelu, Hareesh Peradi, Kajal Aggarwal, Nithya Menen and Samantha.</p>
-      <span className="Span1">Release date: </span>
-      <span className="Span2">18 October 2017</span>
-      <br></br><br></br>
-      <span className="Span1">IMDb Rating: </span>
-      <span className="Span2">7.8/10</span>
-      <br></br><br></br>
-      <span className="Span1">Box office: </span>
-      <span className="Span2">est. ₹260 crores</span>
-      <br></br><br></br>
-      <span className="Span1">Budget: </span>
-      <span className="Span2">₹120 crores</span>
-
-      <br></br>
-      <br></br>
-      <br></br>
-
-      <img src="https://live.staticflickr.com/65535/10496255225_2744d915de_b.jpg" alt="movie-poster"></img>
-      <h2>4. Theri (2016)</h2>
-      <p>
-        <button className="btn btn-success" onClick={() => setLike4(like4 + 1)}>👍 Like {like4}</button> &nbsp; &nbsp;
-        <button className="btn btn-danger" onClick={() => setDislike4(dislike4 + 1)}>👎 Dislike {dislike4}</button>
-      </p>
-      <p className="Summary">Theri is a 2016 Indian Tamil-language action thriller film written and directed by Atlee and produced by Kalaipuli S. Thanu under the banner V Creations. The film stars Vijay and Samantha Ruth Prabhu. The film's music is composed by G. V. Prakash Kumar, with cinematography handled by George C. Williams and editing done by Ruben. The story revolves around a former police officer who is on a mission to protect his daughter from gangsters and seek revenge for the death of his wife.</p>
-      <span className="Span1">Release date: </span>
-      <span className="Span2">14 April 2016</span>
-      <br></br><br></br>
-      <span className="Span1">IMDb Rating: </span>
-      <span className="Span2">7.4/10</span>
-      <br></br><br></br>
-      <span className="Span1">Box office: </span>
-      <span className="Span2">est. ₹150 crores</span>
-      <br></br><br></br>
-      <span className="Span1">Budget: </span>
-      <span className="Span2">est. ₹75 crores</span>
-
-      <br></br>
-      <br></br>
-      <br></br>
-
-      <img src="https://pbs.twimg.com/media/BqptqsXCEAEBQjE?format=jpg&name=large" alt="movie-poster"></img>
-      <h2>5. Kaththi (2014)</h2>
-      <p>
-        <button className="btn btn-success" onClick={() => setLike5(like5 + 1)}>👍 Like {like5}</button> &nbsp; &nbsp;
-        <button className="btn btn-danger" onClick={() => setDislike5(dislike5 + 1)}>👎 Dislike {dislike5}</button>
-      </p>
-      <p className="Summary">Kaththi is a 2014 Indian Tamil-language action drama film directed by A. R. Murugadoss, and produced by Allirajah Subaskaran under the banner Lyca Productions, along with Ayngaran International, as the co-producer and Eros International, who distributed the film. The film stars Vijay in a dual role as lookalikes Kathiresan and Jeevanantham, and focuses on the issue of farmers committing suicide due to corporate encroachment. Samantha Ruth Prabhu, Neil Nitin Mukesh, Tota Roy Chowdhury and Sathish, appear in other prominent roles.</p>
-      <span className="Span1">Release date: </span>
-      <span className="Span2">22 October 2014</span>
-      <br></br><br></br>
-      <span className="Span1">IMDb Rating: </span>
-      <span className="Span2">8.1/10</span>
-      <br></br><br></br>
-      <span className="Span1">Box office: </span>
-      <span className="Span2">est. ₹130 crores</span>
-      <br></br><br></br>
-      <span className="Span1">Budget: </span>
-      <span className="Span2">₹70 crores</span>
-
-      <br></br>
-      <br></br>
+    <div>
+      <input value={color} style={style} onChange={(event) => setColor(event.target.value)} placeholder="Enter a color"></input>
+      <button onClick={() => setColorList([... colorList, color])}>Add Color</button>
+      {colorList.map((clr) => <ColorBox color={clr}/>)};
     </div>
-  );
+  )
+}
+
+function ColorBox({color}){
+  const box = {
+    backgroundColor: color,
+    width: "50px",
+    height: "50px",
+    marginTop: "10px"
+  }
+  return(
+    <div style={box}>{color}</div>
+  )
 }

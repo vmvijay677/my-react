@@ -1,34 +1,41 @@
 .Movie{
-  text-align: center;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 20px;
+  width: 340px;
+}
+
+.Movie-specs{
+  display : flex;
+  flex-direction: column;
+  flex-flow: column nowrap;
 }
 
 img{
-  height: 430px;
-  width: 25%;
-  margin-top: 20px;
+  height: 450px;
+  width: 340px;
+  margin-top: 25px;
+  object-fit: cover;
 }
 
 h1{
   font-size: 40px;
-  color: brown;
+  color: red;
+  text-align: center;
 }
 
 h2{
   font-size: 30px;
-  margin-top: 20px;
-  color: maroon;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  color: red;
 }
 
 .Summary{
   font-size: 19px;
+  color: grey;
 }
 
 .Span1{
   font-size: 20px;
+  color: black;
   font-weight: bold;
 }
 
@@ -36,6 +43,39 @@ h2{
   font-size: 20px;
 }
 
-button{
-  margin-top: 15px;
+#button{
+  margin-top: 10px;
+  background-color: black;
+  color: red;
+}
+
+.App{
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+  align-content: space-around;
+  justify-content: center;
+}
+
+.add-movie{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+#outlined-basic{
+  width: 300px;
+  background-color: red;
+  color: white;
+}
+
+#outlined-multiline-static{
+  width: 300px;
+  background-color: red;
+  color: white;
+}
+
+body{
+  background-image: url(https://www.dolby.com/siteassets/xf-site/blocks/hero/netflix-gradient.png?width=1440);
 }
