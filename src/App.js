@@ -2,7 +2,13 @@ import "./index.css";
 import { useState } from "react";
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-
+import IconButton from '@mui/material/IconButton';
+import Badge from '@mui/material/Badge';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
 
 export default function App() {
   const movies = [
@@ -53,7 +59,7 @@ const style = {
         <TextField id="outlined-basic" label="Movie Poster" variant="outlined" color="success" onChange={(event) => setPoster(event.target.value)}/>
         <TextField id="outlined-multiline-static" label="Movie Summary" color="success" multilinerows={2} onChange={(event) => setSummary(event.target.value)}/>
         <TextField id="outlined-basic" label="Movie Rating" variant="outlined" color="success" onChange={(event) => setRating(event.target.value)}/>
-        <Button id="button" variant="contained" className="button" onClick={() => {
+        <Button id="button" variant="contained" className="button" color="warning" onClick={() => {
           const newMovie = {
             name: name,
             poster: poster,
@@ -77,8 +83,7 @@ function Heading(){
   }
   return(
     <div>
-    <h1 style={style}>IMDb's Favourite</h1>
-    <h1>Add your favourite movie here</h1>
+    <h1 style={style}>Add Your Favourite Movie Here</h1>
     </div>
   )
 }
@@ -90,23 +95,36 @@ function Movieslist({name, poster, summary, rating}){
   };
   const [like1, setLike1] = useState(0);
   const [dislike1, setDislike1] = useState(0);
+  const [show, setShow] = useState(true);
+  // const summaryStyles = {
+  //   display: show ? "block" : "none",
+  // }
   return (
-    <div>
+    <Card className="finalCard">
       <div className="Movie">
       <img src={poster} alt="movie-poster"></img>
+      <CardContent>
       <div className="Movie-specs">
-      <h2>{name}</h2>
+      <h2>{name} 
+        <IconButton color="warning" aria-label="movie summary" onClick={() => setShow(!show)}>
+          {show ? <ExpandLessIcon/> : <ExpandMoreIcon />}
+        </IconButton>
+      </h2>
+      {show ? <p className="Summary">{summary}</p> : " "}
+      <span className="Span1">IMDb Rating:</span>
+      <span className="Span2" style={styles}>⭐ {rating}</span><br></br>
       <p>
-        <button className="btn btn-success" onClick={() => setLike1(like1 + 1)}>👍 Like {like1}</button> &nbsp;
-        <button className="btn btn-danger" onClick={() => setDislike1(dislike1 + 1)}>👎 Dislike {dislike1}</button>
+      <IconButton color="success" aria-label="delete" onClick={() => setLike1(like1 + 1)}>
+      <Badge color="success" badgeContent={like1}>👍</Badge>
+      </IconButton>&nbsp; &nbsp;
+      <IconButton aria-label="delete" color="primary" onClick={() => setDislike1(dislike1 + 1)}>
+      <Badge color="primary" badgeContent={dislike1}>👎</Badge>
+      </IconButton>
       </p>
-      <p className="Summary">{summary}</p>
-      <span className="Span1">IMDb Rating: </span>
-      <span className="Span2" style={styles}>⭐ {rating}</span>
-      <br></br>
       </div>
+      </CardContent>
       </div>
-    </div>
+    </Card>
   );
 }
 
