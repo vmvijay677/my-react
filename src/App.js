@@ -17,6 +17,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import { useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import EditIcon from '@mui/icons-material/Edit';
 
 
 export default function App() {
@@ -55,10 +56,18 @@ export default function App() {
       summary: "Kathiresan, who escapes from prison, accidentally meets his lookalike, Jeeva, who gets shot by criminals. Kathiresan masquerades as Jeeva in order to save himself, but it turns him into a crusader.",
       rating: "8.1/10",
       trailer: "https://www.youtube.com/embed/bMf0IyzyKt4"
-    } 
+    },
+    {
+      poster: "https://m.media-amazon.com/images/M/MV5BZTc4YWY5MzAtOTc4Zi00NDVmLThlMGItYjliOGNkYmM3NDBmXkEyXkFqcGdeQXVyOTk3NTc2MzE@._V1_.jpg",
+      name: "6. Thuppakki (2012)",
+      summary: "An army captain visits Mumbai to be with his family and find a suitable bride. However, an explosion in the city sets him off on a mission to find and disable a terrorist sleeper cell in the city.",
+      rating: "8.1/10",
+      trailer: "https://www.youtube.com/embed/s0O44Sn1hD4"
+    }
 ];
 
 const [movieList, setMovieList] = useState(movies);
+const history = useHistory();
   return (
     <div>
       <br></br>
@@ -90,6 +99,10 @@ const [movieList, setMovieList] = useState(movies);
           <AddMovie movieList={movieList} setMovieList={setMovieList} />
         </Route>
 
+        <Route path="/movies/edit/:id">
+          <EditMovie movieList={movieList} setMovieList={setMovieList} />
+        </Route>
+
         <Route path="/movies/:id">
           <MovieDetails movieList={movieList} setMovieList={setMovieList} />
         </Route>
@@ -109,6 +122,12 @@ const [movieList, setMovieList] = useState(movies);
           setMovieList(copyMovieList);
         }}>
           <DeleteIcon fontSize="inherit"/>
+        </IconButton>}
+        editButton={<IconButton aria-label="delete" size="large" color="primary" onClick={() => {
+          //console.log(index); 
+          history.push(`/movies/edit/${index}`);
+        }}>
+          <EditIcon fontSize="inherit"/>
         </IconButton>}
         id={index} />))}
       </div>
@@ -139,7 +158,7 @@ function Heading(){
   )
 }
 
-function Movieslist({name, poster, summary, rating, deleteButton, id}){
+function Movieslist({name, poster, summary, rating, deleteButton, editButton, id}){
   //let like = 4;
   const styles = {
     color: "green",
@@ -171,11 +190,12 @@ function Movieslist({name, poster, summary, rating, deleteButton, id}){
       <p>
       <IconButton color="success" aria-label="delete" onClick={() => setLike1(like1 + 1)}>
       <Badge color="success" badgeContent={like1}>👍</Badge>
-      </IconButton>&nbsp; &nbsp;
+      </IconButton>&nbsp;
       <IconButton aria-label="delete" color="primary" onClick={() => setDislike1(dislike1 + 1)}>
       <Badge color="primary" badgeContent={dislike1}>👎</Badge>
-      </IconButton>
+      </IconButton>&nbsp;
       {deleteButton}
+      {editButton}
       </p>
       </div>
       </CardContent>
@@ -244,14 +264,22 @@ function TicTacToe(){
   }
 
   const { width, height } = useWindowSize()
+
+  const styles = {
+    marginTop: "20px",
+    marginBottom: "5px"
+  }
+  const styles1 = {
+    marginBottom: "25px",
+  }
   return (
     <div className="full-game">
     {winner ? <Confetti width={width} height={height} /> : " "}
-    <h2>Start the game with X</h2>
+    <h1 style={styles1}>Welcome to Tic Tac Toe Game</h1>
       <div className="board">
       {board.map((val, index) => (<GameBox val={val} onPlayerClick={() => handleClick(index)}/>))}
       </div>
-      {winner ? <h1>Winner is: {winner}</h1> : " "}
+      {winner ? <h1 style={styles}>Winner is: {winner}</h1> : " "}
       <Button id="button" variant="contained" className="button" color="warning" onClick = {() => {setBoard(
         [ null, 
           null, 
@@ -334,6 +362,7 @@ function AddMovie({movieList, setMovieList}){
   }
   return(
     <div className="add-movie">
+        <h1>Add Your Favourite Movies Here</h1>
         <TextField id="outlined-basic" label="Movie Name" color="success" variant="outlined" style={style} onChange={(event) => setName(event.target.value)} />
         <TextField id="outlined-basic" label="Movie Poster" variant="outlined" color="success" onChange={(event) => setPoster(event.target.value)}/>
         <TextField id="outlined-multiline-static" label="Movie Summary" color="success" multilinerows={2} onChange={(event) => setSummary(event.target.value)}/>
@@ -351,8 +380,49 @@ function AddMovie({movieList, setMovieList}){
           history.push("/movies");
         }}>Add Movie</Button>
       </div>
-  );
+    );
 }
+
+function EditMovie({movieList, setMovieList}){
+  const {id} = useParams();
+  const movie = movieList[id];
+  //console.log(movie);
+
+  const styles = {
+    marginTop: "10px",
+  }
+
+  const [name, setName] = useState(movie.name);
+  const [poster, setPoster] = useState(movie.poster);
+  const [summary, setSummary] = useState(movie.summary);
+  const [rating, setRating] = useState(movie.rating);
+  const [trailer, setTrailer] = useState(movie.trailer);
+  const history = useHistory();
+  return(
+    <div className="add-movie">
+        <h1>Edit Movies Details Here</h1>
+        <TextField value={name} style={styles} id="outlined-basic" label="Movie Name" color="success" variant="outlined" onChange={(event) => setName(event.target.value)} />
+        <TextField value={poster} id="outlined-basic" label="Movie Poster" variant="outlined" color="success" onChange={(event) => setPoster(event.target.value)}/>
+        <TextField value={summary} id="outlined-multiline-static" label="Movie Summary" color="success" multilinerows={2} onChange={(event) => setSummary(event.target.value)}/>
+        <TextField value={rating} id="outlined-basic" label="Movie Rating" variant="outlined" color="success" onChange={(event) => setRating(event.target.value)}/>
+        <TextField value={trailer} id="outlined-basic" label="Movie Trailer" variant="outlined" color="success" onChange={(event) => setTrailer(event.target.value)}/>
+        <Button id="button" variant="contained" className="button" color="success" onClick={() => {
+          const updatedMovie = {
+            name: name,
+            poster: poster,
+            rating: rating,
+            summary: summary,
+            trailer: trailer,
+          };
+          const copyMovieList = [... movieList];
+          copyMovieList[id] = updatedMovie;
+          setMovieList(copyMovieList);
+          history.push("/movies");
+        }}>Save</Button>
+      </div>
+    );
+}
+
 
 
 
