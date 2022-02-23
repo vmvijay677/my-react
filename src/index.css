@@ -1,109 +1,95 @@
-.Movie{
+.movie-poster{
+  width: 340px;
+  height: 500px;
+  object-fit: cover;
+  padding: 10px;
+}
+
+.movie-container{
   width: 340px;
   height: min-content;
 }
 
-.Movie-specs{
-  display : flex;
-  flex-direction: column;
-  flex-flow: column nowrap;
-  height: min-content;
+.movie-specs{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-img{
-  height: 450px;
-  width: 320px;
-  margin-top: 25px;
-  object-fit: cover;
-  margin-left: 10px;
-}
-
-h1{
-  font-size: 40px;
-  text-align: center;
-}
-
-h2{
-  font-size: 25px;
-  margin-top: 15px;
-  margin-bottom: 15px;
+.movie-name{
   color: red;
 }
 
-.Summary{
-  font-size: 19px;
+.movie-summary{
+  font-size: 18px;
 }
 
-.Span1{
+.movie-rating{
   font-size: 20px;
   font-weight: bold;
 }
 
-.Span2{
-  font-size: 20px;
-  font-weight: bold;
-}
-
-#button{
-  margin-top: 10px;
-}
-
-.App{
+.movie-List{
   display: flex;
-  gap: 50px;
+  gap: 20px;
   flex-wrap: wrap;
-  align-content: space-around;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 
-.add-movie{
+.counter-container{
+  display: flex;
+  gap: 5px;
+}
+
+.like-dislike{
+  font-size: 20px;
+}
+
+.add-movie-form{
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 10px;
-}
-
-#outlined-basic{
-  width: 300px;
-  background-color: white;
-}
-
-#outlined-multiline-static{
-  width: 300px;
-  background-color: white;
-}
-
-.finalCard{
-  margin-top: 20px;
-}
-
-.board{
-  display: flex;
-  flex-wrap: wrap;
-  width: 492px;
-}
-
-.full-game{
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
+  margin: 16px;
   align-items: center;
+}
+
+.inputfield{
+  width: 25%;
+}
+
+.game-box{
+  height: 160px;
+  width: 160px;
+  background-color: white;
+  border: 1px solid black;
+  font-size: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 15px;
+  cursor: pointer;
 }
 
 body{
   background-color: whitesmoke;
 }
 
-.game-box{
-  width: 160px;
-  height: 160px;
-  border: 1px solid black;
-  background-color: white;
-  font-size: 160px;
+.board{
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
+  width: 480px;
+}
+
+.full-game{
+  display: flex;
   justify-content: center;
-  cursor: pointer;
+}
+
+.button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
 }
 
 .not-found{
@@ -112,13 +98,11 @@ body{
   margin: 0;
 }
 
-.movie-details{
+.movie-detail-container{
   max-width: 90%;
-  margin-left: 30px;
-  padding-bottom: 20px;
+  padding: 15px;
 }
 
-.appbar{
-  margin-bottom: 15px;
-  display: flex;
+.route-container{
+  margin: 20px;
 }
