@@ -72,6 +72,7 @@
 
 body{
   background-color: whitesmoke;
+  font-family: Roboto;
 }
 
 .board{
@@ -105,4 +106,34 @@ body{
 
 .route-container{
   margin: 20px;
+}
+
+.recipe-picture{
+  height: 540px;
+  width: 750px;
+  object-fit: cover;
+}
+
+.recipe-container{
+  width: 750px;
+  background-color: white;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-top: 20px;
+  box-shadow: rgb(0 0 0 / 24%) 1px 2px 13px;
+}
+
+.recipe-name {
+  padding: 16px;
+  font-size: 45px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.recipe-list-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  margin: 24px;
 }

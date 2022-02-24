@@ -14,6 +14,7 @@ import { MovieDetails } from "./MovieDetails";
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import { useHistory } from "react-router-dom";
+import { useEffect } from "react";
 import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
@@ -32,7 +33,7 @@ export default function App() {
   const [movieList, setMovieList] = useState(INITIAL_MOVIE_LIST);
   return (
     <ThemeProvider theme={theme}>
-      <Paper style={{ borderRadius: "0px", minHeight: "100vh" }} elevation={4}>
+      <Paper style={{ borderRadius: "0px", minHeight: "150vh" }} elevation={4}>
         <div className="App">
           <AppBar position="static">
             <Toolbar>
@@ -42,6 +43,8 @@ export default function App() {
               <Button color="inherit" onClick={() => history.push("/color-game")}>Color Game</Button>
               <Button color="inherit" onClick={() => history.push("/tic-tac-toe")}>Tic Tac Toe</Button>
               <Button color="inherit" onClick={() => history.push("/basic-form")}>Form Validations</Button>
+              <Button color="inherit" onClick={() => history.push("/recipe-app")}>Recipe App</Button>
+              <Button color="inherit" onClick={() => history.push("/recipe-list")}>Recipe List</Button>
               <Button
                 color="inherit"
                 startIcon={theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
@@ -82,6 +85,12 @@ export default function App() {
               <Route path="/basic-form">
                 <BasicForm />
               </Route>
+              <Route path="/recipe-app">
+                <Welcome />
+              </Route>
+              <Route path="/recipe-list">
+                <RecipeList />
+              </Route>
 
               <Route path="**">
                 <NotFound />
@@ -91,5 +100,66 @@ export default function App() {
         </div>
       </Paper>
     </ThemeProvider>
+  );
+}
+
+function Welcome() {
+  const message = "Welcome to recipe app 😊🎂";
+  return (
+    <div>
+      <h2>{message}</h2>
+    </div>
+  );
+}
+
+function RecipeList() {
+  // const recipeList = [
+  //   {
+  //     picture:
+  //       "https://img-global.cpcdn.com/recipes/b114fd2f1b65e6a1/1200x630cq70/photo.jpg",
+  //     name: "Tandoori Chicken"
+  //   },
+  //   {
+  //     picture:
+  //       "https://www.vegrecipesofindia.com/wp-content/uploads/2020/01/paneer-butter-masala-1.jpg",
+  //     name: "Panner Butter Masala"
+  //   },
+  //   {
+  //     picture:
+  //       "https://images.indulgexpress.com/uploads/user/imagelibrary/2019/8/1/original/Biryanifest.jpg",
+  //     name: "Briyani"
+  //   },
+  //   {
+  //     picture:
+  //       "https://static.toiimg.com/thumb/64696930.cms?width=1200&height=900",
+  //     name: "Parotta Shawarma"
+  //   }
+  // ];
+  const [recipeList, setRecipeList] = useState([]);
+
+  //runs only once when component is mounted
+  useEffect(() => {
+    fetch("https://6209ee0f92946600171c55ca.mockapi.io/recipes")
+      .then((data) => data.json())
+      .then((recipes) => setRecipeList(recipes));
+  }, []);
+
+  const message = "Awesome recipe list 🍗🍟"
+  return (
+    <div>
+      <h2>{message}</h2>
+      <div className="recipe-list-container">
+        {recipeList.map((recipe) => <Recipe recipe={recipe} />)}
+      </div>
+    </div>
+  );
+}
+
+function Recipe({ recipe }) {
+  return (
+    <div className="recipe-container">
+      <img src={recipe.picture} alt="recipe-picture" className="recipe-picture"></img>
+      <p className="recipe-name">{recipe.name}</p>
+    </div>
   );
 }
