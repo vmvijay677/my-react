@@ -31,14 +31,14 @@ export function MovieList() {
 
   return (
     <div className="movie-List">
-      {movieList.map(({ name, poster, rating, summary, id }, index) => <Movie
-        key={index}
+      {movieList.map(({ name, poster, rating, summary, id, _id }, index) => <Movie
+        key={_id}
         name={name}
         poster={poster}
         rating={rating}
         summary={summary}
         deleteButton={<IconButton aria-label="delete" style={{ marginLeft: "auto" }} size="large" color="error"
-          onClick={() => deleteMovie(id)}
+          onClick={() => deleteMovie(_id)}
         //console.log(index);
         // const copyMovieList = [...movieList];
         // copyMovieList.splice(index, 1);
@@ -48,11 +48,11 @@ export function MovieList() {
         </IconButton>}
         editButton={<IconButton aria-label="delete" size="large" color="primary" onClick={() => {
           //console.log(index); 
-          history.push(`/movies/edit/${id}`);
+          history.push(`/movies/edit/${_id}`);
         }}>
           <EditIcon fontSize="inherit" />
         </IconButton>}
-        id={id}
+        id={_id}
       />)}
     </div>
   );
